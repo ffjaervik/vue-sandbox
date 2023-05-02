@@ -1,10 +1,7 @@
 <template>
   <nav
     class="navbar navbar-expand-lg"
-    :class="{
-      'navbar-dark bg-dark': setDarkNavbar,
-      'navbar-light bg-light': !setDarkNavbar,
-    }"
+    :class="navbarClasses"
   >
     <div class="container-fluid">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0 black">
@@ -34,6 +31,16 @@
 <script>
   export default {
     name: "App",
+    computed:{
+      navbarClasses(){
+        return {
+          'navbar-light': !this.setDarkNavbar,
+          'bg-light': !this.setDarkNavbar,
+          'navbar-dark': this.setDarkNavbar,
+          'bg-dark': this.setDarkNavbar,
+        }
+      }
+    },
     data() {
       return {
         activePage: 0,
