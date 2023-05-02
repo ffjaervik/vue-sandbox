@@ -3,11 +3,21 @@
   <h1>{{ pageTitle }}</h1>
   <nav>
     <ul id="navbar">
-      <li v-for="(link, index) in links" :key="index">
-        <a :href="link.url" :title="`This page goes to ${link.name}`">{{ link.name }}</a>
+      <li v-for="(page, index) in pages" :key="index">
+        <a
+          aria-current="page"
+          :href="page.link.url"
+          :title="`This page goes to ${page.link.pageTitle}`"
+          @click.prevent="activePage = index"
+          >{{ page.link.text }}</a
+        >
       </li>
     </ul>
   </nav>
+  <h1>{{ pages[activePage].pageTitle }}</h1>
+  <p>
+    {{ pages[activePage].content }}
+  </p>
 </template>
 
 <script>
@@ -15,14 +25,24 @@
     name: "App",
     data() {
       return {
-        links: [
-          { name: "Home", url: "/" },
-          { name: "About", url: "/about" },
-          { name: "Contact", url: "/contact" },
-          { name: "Login", url: "/login" },
-          { name: "Register", url: "/register" },
+        activePage: 0,
+        pages: [
+          {
+            link: { text: "Home", url: "index.html" },
+            pageTitle: "Home Page",
+            content: "This is the home page",
+          },
+          {
+            link: { text: "About", url: "about.html" },
+            pageTitle: "About Page",
+            content: "This is the about page",
+          },
+          {
+            link: { text: "Contact", url: "contact.html" },
+            pageTitle: "Contact Page",
+            content: "This is the contact page",
+          },
         ],
-        pageTitle: "Vue Basics",
       };
     },
   };
@@ -37,7 +57,8 @@
     gap: 50px;
   }
 
-  #navbar li, a {
+  #navbar li,
+  a {
     list-style-type: none;
     font-size: 1rem;
     color: #000;
