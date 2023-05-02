@@ -1,18 +1,29 @@
 <template>
-  <title>{{ pageTitle }}</title>
-  <h1>{{ pageTitle }}</h1>
-  <nav>
-    <ul id="navbar">
-      <li v-for="(page, index) in pages" :key="index">
-        <a
-          aria-current="page"
-          :href="page.link.url"
-          :title="`This page goes to ${page.link.pageTitle}`"
-          @click.prevent="activePage = index"
-          >{{ page.link.text }}</a
-        >
-      </li>
-    </ul>
+  <nav
+    class="navbar navbar-expand-lg"
+    :class="{
+      'navbar-dark bg-dark': setDarkNavbar,
+      'navbar-light bg-light': !setDarkNavbar,
+    }"
+  >
+    <div class="container-fluid">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0 black">
+        <li v-for="(page, index) in pages" :key="index" class="nav-item">
+          <a
+            class="nav-link"
+            :class="{ active: activePage === index }"
+            aria-current="page"
+            :href="page.link.url"
+            :title="`This page goes to ${page.link.pageTitle}`"
+            @click.prevent="activePage = index"
+            >{{ page.link.text }}</a
+          >
+        </li>
+      </ul>
+      <form class="d-flex">
+        <button class="btn btn-primary" @click.prevent="setDarkNavbar = !setDarkNavbar">Change Navbar</button>
+      </form>
+    </div>
   </nav>
   <h1>{{ pages[activePage].pageTitle }}</h1>
   <p>
@@ -26,6 +37,7 @@
     data() {
       return {
         activePage: 0,
+        setDarkNavbar: false,
         pages: [
           {
             link: { text: "Home", url: "index.html" },
@@ -49,7 +61,7 @@
 </script>
 
 <style>
-  #navbar {
+  /* #navbar {
     display: flex;
     width: 100%;
     flex-direction: row;
@@ -66,5 +78,5 @@
     text-decoration: none;
     text-transform: uppercase;
     cursor: pointer;
-  }
+  } */
 </style>
