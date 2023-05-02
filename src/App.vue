@@ -1,9 +1,11 @@
 <template>
-  <title>Vue Basics</title>
-  <h1>Vue Basics</h1>
+  <title>{{ pageTitle }}</title>
+  <h1>{{ pageTitle }}</h1>
   <nav>
-    <ul>
-      <li v-for="link in links" :key="link.name" :href="link.url">{{ link.name }}</li>
+    <ul id="navbar">
+      <li v-for="(link, index) in links" :key="index">
+        <a :href="link.url" :title="`This page goes to ${link.name}`">{{ link.name }}</a>
+      </li>
     </ul>
   </nav>
 </template>
@@ -20,9 +22,28 @@
           { name: "Login", url: "/login" },
           { name: "Register", url: "/register" },
         ],
+        pageTitle: "Vue Basics",
       };
     },
   };
 </script>
 
-<style></style>
+<style>
+  #navbar {
+    display: flex;
+    width: 100%;
+    flex-direction: row;
+    justify-content: flex-start;
+    gap: 50px;
+  }
+
+  #navbar li, a {
+    list-style-type: none;
+    font-size: 1rem;
+    color: #000;
+    font-weight: bold;
+    text-decoration: none;
+    text-transform: uppercase;
+    cursor: pointer;
+  }
+</style>
